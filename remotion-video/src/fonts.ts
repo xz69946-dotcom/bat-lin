@@ -15,6 +15,11 @@ const faces = [
     weight: "500",
     style: "italic",
   },
+  { family: "STIX Two Text", file: "STIXTwoText-400-italic.woff2", weight: "400", style: "italic" },
+  { family: "STIX Two Text", file: "STIXTwoText-400.woff2", weight: "400" },
+  { family: "STIX Two Math", file: "STIXTwoMath-400.woff2", weight: "400" },
+  { family: "JetBrains Mono", file: "JetBrainsMono-400.woff2", weight: "400" },
+  { family: "JetBrains Mono", file: "JetBrainsMono-700.woff2", weight: "700" },
 ];
 
 faces.forEach((f) => {
@@ -28,6 +33,8 @@ faces.forEach((f) => {
 
 export const fonts = {
   serifSC: '"Noto Serif SC", serif',
-  sansSC: '"Noto Sans SC", sans-serif',
+  sansSC: '"Noto Sans SC", "STIX Two Math", sans-serif',
   latin: '"Cormorant Garamond", serif',
+  math: '"STIX Two Text", "STIX Two Math", serif',
+  mono: '"JetBrains Mono", "STIX Two Math", monospace',
 } as const;

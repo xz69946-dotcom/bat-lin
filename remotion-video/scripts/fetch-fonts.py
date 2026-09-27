@@ -15,7 +15,9 @@ UA = (
 chars = set()
 for f in glob.glob("src/**/*.ts*", recursive=True):
     chars.update(c for c in open(f, encoding="utf-8").read() if ord(c) > 127)
-latin = "".join(chr(i) for i in range(32, 127)) + "—·"
+latin = "".join(chr(i) for i in range(32, 127)) + "—·–×≈≥≤±→·"
+# 公式用到的希腊字母与数学符号
+math = latin + "ΔΛΣΨΩμνπψħ₀₁₂⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺∞∫≡≥≤≈→"
 cjk = "".join(sorted(chars)) + "，：·—、。" + latin
 
 
@@ -42,3 +44,9 @@ fetch(
     latin,
     "public/fonts/CormorantGaramond-500-italic.woff2",
 )
+fetch("STIX+Two+Text", "ital,wght@1,400", math, "public/fonts/STIXTwoText-400-italic.woff2")
+fetch("STIX+Two+Text", "wght@400", math, "public/fonts/STIXTwoText-400.woff2")
+fetch("JetBrains+Mono", "wght@400", math, "public/fonts/JetBrainsMono-400.woff2")
+fetch("JetBrains+Mono", "wght@700", math, "public/fonts/JetBrainsMono-700.woff2")
+# 数学符号与上标的兜底字体（STIX Two Text / JetBrains Mono / 思源黑体缺少的字形）
+fetch("STIX+Two+Math", "wght@400", math, "public/fonts/STIXTwoMath-400.woff2")
