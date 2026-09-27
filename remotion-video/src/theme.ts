@@ -1,9 +1,7 @@
 import { Easing } from "remotion";
-import { loadFont } from "@remotion/google-fonts/NotoSansSC";
+import { fonts } from "./fonts";
 
-const { fontFamily } = loadFont("normal", {
-  weights: ["400", "700"],
-});
+const fontFamily = fonts.sansSC;
 
 export const theme = {
   color: {
