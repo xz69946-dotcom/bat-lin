@@ -37,6 +37,16 @@ npx remotion render
 npx remotion upgrade
 ```
 
+## 导出手机版
+
+渲染完成后运行下面的命令，生成能在手机上播放、存进相册、发微信的版本（输出到 `out/phone/`）：
+
+```console
+bash scripts/to-phone.sh out/CosmicTruths.mp4 out/GuangRen.mp4
+```
+
+它会把视频转成 H.264 High@4.0、yuv420p 标准色彩范围，加一条静音音轨，并把索引放在文件开头。原因是 Remotion 直接输出的文件是全范围色彩（yuvj420p）且没有音轨，部分手机相册和微信会打不开或存不了。
+
 ## 《宇宙真理》（CosmicTruths）
 
 2 分钟（1920×1080，30fps，3600 帧）的科普动态图形，10 个场景讲 8 条已被确证的宇宙事实。
