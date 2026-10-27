@@ -62,6 +62,27 @@ npx remotion render LiuBai out/LiuBai.mp4
 
 代码在 `src/liubai/`：`timeline.ts`（卷上各段位置、镜头关键帧、每段落墨时间）、`camera.ts`（镜头插值，缩放在对数空间插值）、`world/`（卷上的每一段画面）、`Overlays.tsx`（前景薄雾、暗角、片尾字幕）。宣纸纹理由 `LiuBai-PaperTile` 生成：`npx remotion still LiuBai-PaperTile public/liubai/paper.png`。
 
+## 《壬二酸》（Azelaic）
+
+2 分钟（1920×1080，30fps，3600 帧）的 3D 皮肤近景科普动画，用 `@remotion/three`（three.js + React Three Fiber）建模渲染。整片是一条连续的镜头，没有剪切。
+
+| 时间 | 镜头 | 内容 |
+|---|---|---|
+| 0–9s | 分子特写 | 片名；壬二酸球棍模型绕自身长轴旋转 |
+| 9–21s | 分子特写 | 两端羧基、7 个亚甲基的标注；分子式 C9H16O4，天然来源（谷物、马拉色菌） |
+| 21–33s | 落到皮肤上 | 小分子落向皮肤，镜头拉出皮肤剖面全景，标出角质层、表皮、黑素细胞、真皮、毛囊、皮脂腺 |
+| 33–52s | 毛囊内部 | 作用一 抗菌：痤疮丙酸杆菌依次萎缩、变灰 |
+| 52–69s | 毛囊口 | 作用二 疏通：角栓自上而下松动、脱落 |
+| 69–87s | 真皮 | 作用三 抗炎：中性粒细胞与活性氧火花，红晕逐渐消退 |
+| 87–105s | 基底层 | 作用四 淡斑：过度活跃的黑素细胞缩小，黑色素颗粒减少 |
+| 105–120s | 全景 | 回顾四种作用、使用须知、科普声明 |
+
+```console
+npx remotion render Azelaic out/azelaic.mp4 --gl=swangle
+```
+
+代码在 `src/azelaic/`：`Skin.tsx`（皮肤剖面：分层挤出体、细胞实例、真皮胶原与毛细血管、毛囊与皮脂腺，以及细菌、角栓、炎症、黑素细胞等随剧情变化的部分）、`Molecule.tsx`（壬二酸球棍模型）、`Scene3D.tsx`（灯光、各段的分子群运动）、`camera.ts`（镜头关键帧与给文字标注用的 3D→屏幕投影）、`Overlays.tsx`（片名、标注、知识卡片、回顾）。
+
 ## 导出手机版
 
 渲染完成后运行下面的命令，生成能在手机上播放、存进相册、发微信的版本（输出到 `out/phone/`）：
@@ -149,6 +170,8 @@ Remotion 无法在云端容器里下载自带的 Chrome（`remotion.media` 不�
 ```console
 npx remotion render GuangRen out/GuangRen.mp4 --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell
 ```
+
+预装浏览器的目录名会随环境更新而变化，先用 `ls /opt/pw-browsers` 确认路径。含 3D 的片子（如《壬二酸》）在没有显卡的容器里要加 `--gl=swangle`（软件渲染 WebGL），否则会报「Error creating WebGL context」。
 
 字体已改为本地加载，因此渲染不再需要让 Chromium 信任出口网关证书。如果以后引入远程资源（在线图片、Google Fonts 等），仍需先把 `/root/.ccr/ca-bundle.crt` 导入 Chromium 的 NSS 库（`~/.pki/nssdb`）。
 
