@@ -4,48 +4,41 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>指尖花开</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&amp;text=%E6%8C%87%E5%B0%96%E8%8A%B1%E5%BC%80&amp;display=swap" />
     <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- BODY-START -->
+    <div id="stage" aria-label="粒子花朵，可触摸交互"></div>
+
+    <header class="hud">
+      <h1 class="title">指尖花开</h1>
+      <ul class="hints" aria-label="操作说明">
+        <li><b>长按</b>收拢成花苞，松开绽放</li>
+        <li><b>双指</b>捏合 / 张开，控制开合</li>
+        <li><b>滑动</b>指尖拨动花瓣</li>
+      </ul>
+    </header>
+
+    <footer class="meter" aria-live="polite">
+      <div class="meter-row">
+        <span id="state" class="state">绽放</span>
+        <span class="spec">24 片花瓣 · 3 层</span>
+        <span id="pct" class="pct">0%</span>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </footer>
+
     <script type="importmap">
       {
         "imports": {
           "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/",
-          "@mediapipe/tasks-vision": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.1.1/vision_bundle.mjs"
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"
         }
       }
     </script>
-  </head>
-  <body>
-    <!-- 摄像头画面（镜像、调暗）作为背景，花朵叠在真实的手上 -->
-    <video id="cam" playsinline muted></video>
-    <div id="stage"></div>
-    <canvas id="skeleton"></canvas>
-
-    <header class="hud">
-      <div class="title">指尖花开</div>
-      <div class="sub">握拳 → 花苞 · 张开手掌 → 绽放</div>
-    </header>
-
-    <div class="meter" id="meter" hidden>
-      <div class="meter-label"><span id="state">等待手势</span><span id="pct">0%</span></div>
-      <div class="meter-track"><div class="meter-fill" id="fill"></div></div>
-    </div>
-
-    <div class="toolbar" id="toolbar" hidden>
-      <button id="btn-video" type="button">隐藏画面</button>
-      <button id="btn-skel" type="button">显示骨架</button>
-    </div>
-
-    <div class="overlay" id="overlay">
-      <div class="card">
-        <div class="card-title">指尖花开</div>
-        <p>用摄像头识别你的手：<b>握拳</b>时花朵收拢成花苞，<b>张开手掌</b>时花瓣向外绽放，花瓣会躲开你的指尖。</p>
-        <button id="btn-start" class="primary" type="button">开启摄像头</button>
-        <button id="btn-demo" type="button">没有摄像头？用鼠标体验</button>
-        <p class="hint" id="load-msg">画面只在你的浏览器里处理，不会上传。</p>
-      </div>
-    </div>
-
+    <!-- BODY-END -->
     <script type="module" src="./src/main.js"></script>
   </body>
 </html>

@@ -132,8 +132,8 @@ const vertexShader = /* glsl */ `
       world.xyz += n * f * 0.22 * uScale + cross(n, vec3(0.0, 0.0, 1.0)) * f * 0.12 * uScale;
       glow = max(glow, f);
     }
-    col = mix(col, vec3(0.75, 0.97, 1.0), glow * 0.6);
-    alpha = min(1.0, alpha + glow * 0.25);
+    col = mix(col, vec3(0.75, 0.97, 1.0), glow * 0.35);
+    alpha = min(1.0, alpha + glow * 0.1);
 
     vec4 mv = viewMatrix * world;
     gl_Position = projectionMatrix * mv;
