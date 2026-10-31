@@ -21,7 +21,7 @@ python -c "from rembg import remove, new_session; from PIL import Image; \
   remove(Image.open('melancholy_spear_still.jpg').convert('RGB').resize((1280, 720)), \
   session=new_session('isnet-general-use'), only_mask=True).save('mask.png')"
 python animate.py melancholy_spear_still.jpg mask.png out.mp4 \
-  --center 0.5,0.55 --focus 0.40,0.30 --spear 0.1675,1.0,0.9525,0.058
+  --center 0.45,0.53 --focus 0.40,0.27 --spear 0.07,0.929,0.945,0.107
 ```
 
 `animate.py` 的参数（坐标都是 0~1 的相对位置）：
@@ -42,11 +42,11 @@ python animate.py melancholy_spear_still.jpg mask.png out.mp4 \
 
 | 静图 | 提示词 | 遮罩 | 参数 |
 |---|---|---|---|
-| `melancholy_spear_still.jpg` 忧郁剑客（金） | `prompt_melancholy_spear.txt` | isnet-general-use | `--center 0.5,0.55 --focus 0.40,0.30 --spear 0.1675,1.0,0.9525,0.058` |
-| `silver_ink_still.jpg` 银墨侧脸 | `prompt_silver_ink.txt` | u2net_human_seg × 以脸为中心的径向衰减（见下） | `--center 0.6,0.4 --focus 0.58,0.42 --tint 1.0,0.93,0.85 --travel 72` |
-| `golden_spear_still.jpg` 第一版（脸太嫩，已弃用） | `prompt_golden_spear.txt` | isnet-general-use | `--center 0.46,0.55 --focus 0.47,0.42 --spear 0.087,0.752,0.928,0.323` |
+| `melancholy_spear_still.jpg` 忧郁剑客（金，约 24 岁） | `prompt_melancholy_spear.txt` | isnet-general-use | `--center 0.45,0.53 --focus 0.40,0.27 --spear 0.07,0.929,0.945,0.107` |
+| `silver_ink_still.jpg` 银墨侧脸（约 24 岁） | `prompt_silver_ink.txt` | 以脸为中心的圆形渐隐遮罩（见下） | `--center 0.62,0.45 --focus 0.60,0.47 --tint 1.0,0.93,0.85 --travel 72` |
+| `golden_spear_still.jpg` 第一版（脸太嫩、偶像感，已弃用） | `prompt_golden_spear.txt` | isnet-general-use | `--center 0.46,0.55 --focus 0.47,0.42 --spear 0.087,0.752,0.928,0.323` |
 
-**遮罩要先看一眼再用。** 银墨侧脸那张，isnet 把亮的水浪当成了主体，脸几乎没抠到，直接用会变成水不动、脸在流。改用 `u2net_human_seg` 后能抠到整个头，再乘一个以脸为中心（0.61, 0.42）、半径 0.16 到 0.30 渐隐的权重，脸完全锁住，外圈的头发和烟雾仍然能飘。
+**遮罩要先看一眼再用。** 银墨侧脸这类图，人物和水浪融在一起：isnet 会把亮的水浪当成主体、几乎抠不到脸；`u2net_human_seg` 又会把大半个画面都当成人。最后用的是以脸为中心（0.62, 0.47）、半径 0.12 内完全锁住、到 0.22 渐隐的圆形遮罩：脸不动，外圈的头发和水流照常流动。
 
 ## 原理
 
