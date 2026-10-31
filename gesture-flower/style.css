@@ -1,0 +1,191 @@
+:root {
+  --bg: #07060d;
+  --ink: #f6eef6;
+  --dim: #b8a9bf;
+  --accent: #ff8fc6;
+  --gold: #ffd36e;
+  --panel: rgba(22, 16, 30, 0.72);
+  --line: rgba(255, 143, 198, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 60%, #1c1028 0%, var(--bg) 70%);
+  color: var(--ink);
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#cam,
+#stage,
+#skeleton {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 视频只作为识别输入和 WebGL 背景纹理，本身不直接显示 */
+#cam {
+  width: 2px;
+  height: 2px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#skeleton {
+  pointer-events: none;
+  display: none;
+}
+
+#skeleton.on {
+  display: block;
+}
+
+#stage canvas {
+  display: block;
+}
+
+.hud {
+  position: fixed;
+  left: 24px;
+  top: 20px;
+  pointer-events: none;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.hud .title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+
+.hud .sub {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--dim);
+  letter-spacing: 2px;
+}
+
+.meter {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  width: min(420px, calc(100% - 48px));
+  transform: translateX(-50%);
+  padding: 12px 16px 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+#pct {
+  color: var(--dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.meter-track {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #b23a7a, var(--accent), var(--gold));
+}
+
+.toolbar {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
+}
+
+button.primary {
+  background: linear-gradient(135deg, #c2357f, #ff8fc6);
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 12px 20px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(7, 6, 13, 0.55);
+  padding: 16px;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.card {
+  width: min(440px, 100%);
+  padding: 28px 26px 22px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: center;
+}
+
+.card-title {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 8px;
+}
+
+.card p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--dim);
+}
+
+.card b {
+  color: var(--ink);
+}
+
+.card .hint {
+  font-size: 13px;
+}
